@@ -1,0 +1,7 @@
+{
+  "name": "college-finder-vue",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
