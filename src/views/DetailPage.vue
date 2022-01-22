@@ -3,14 +3,13 @@
     <ion-header :translucent="false">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-menu-button color="primary"></ion-menu-button>
+          <ion-menu-button router-link="/main" router-direction="back"></ion-menu-button>
         </ion-buttons>
-        <ion-buttons slot="primary">
+        <ion-buttons slot="end">
           <ion-button>
-            <ion-icon slot="icon-only" :icon="funnelOutline"></ion-icon>
+            <ion-icon slot="icon-only" :icon="heartOutline"></ion-icon>
           </ion-button>
         </ion-buttons>
-        <ion-searchbar></ion-searchbar>
       </ion-toolbar>
     </ion-header>
     
@@ -22,14 +21,7 @@
       </ion-header>
     
       <div>
-        <DataMap 
-          v-if="view==='map'"
-          :colleges="colleges"
-        ></DataMap>
-        <DataTable 
-          v-if="view==='table'"
-          :colleges="colleges"
-        ></DataTable>
+
       </div>
     </ion-content>
 
@@ -54,22 +46,16 @@
 <script lang="ts">
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonIcon, IonPage, IonToolbar, IonFab, IonFabButton, IonFabList } from "@ionic/vue";
 import { 
-  optionsOutline,
-  funnelOutline,
+  heartOutline,
   globeOutline,
-  readerOutline,
   appsOutline,
   flashOutline,
 } from "ionicons/icons";
 import { defineComponent, ref, onMounted } from "vue";
-
-import DataMap from "@/components/DataMap.vue";
-import DataTable from "@/components/DataTable.vue";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
   components: {
-    DataMap,
-    DataTable,
     IonButtons,
     IonContent,
     IonHeader,
@@ -82,36 +68,27 @@ export default defineComponent({
     IonFabList,
   },
   setup() {
-    let view = ref("table");
-    let colleges:any = ref();
+    const route = useRoute();
+    const { id } = route.params;
+console.log("ROUTE ID", id);
+    // let view = ref("map");
+    // let selected:any = ref();
+    // let colleges:any = ref();
 
-    const getData = async () => {
-      let data = await fetch("/assets/data/colleges_matched.geojson");
-      colleges.value = await data.json();
-    };
+    // const getData = async () => {
+    //   let data = await fetch("/assets/data/colleges_matched.geojson");
+    //   colleges.value = await data.json();
+    // };
 
-    const showTable = () => {
-      view.value = "table";
-    };
-    const showMap = () => {
-      view.value = "map";
-    };
-
-    onMounted(async () => {
-      await getData();
-    });
+    // onMounted(async () => {
+      
+    // });
 
     return { 
-      view,
-      colleges,
-      optionsOutline,
-      funnelOutline,
+      heartOutline,
       globeOutline,
-      readerOutline,
       appsOutline,
       flashOutline,
-      showTable,
-      showMap,
     }
   },
 });

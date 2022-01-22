@@ -1,13 +1,24 @@
 <template>
   <div id="container">
-    <strong>DETAIL</strong>
+    Name={{ college.ncaa_name }}=
   </div>
 </template>
 
 <script lang="ts">
+import { ref, onMounted, watch, toRefs } from "vue";
 
 export default {
   name: "DataDetail",
+  props: {
+    college: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  setup(props:any) {
+    const { college } = toRefs(props)
+    return {};
+  },
 }
 </script>
 
